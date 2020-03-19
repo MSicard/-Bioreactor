@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>RCO Supervisor Vial</title>
+    <title>BioReactor</title>
     <link rel="shortcut icon" href="{{ url('images/favicon.ico') }}" />
 
     <!-- Url stylesheets -->
@@ -102,13 +102,13 @@
                     <li class="nav-item dropdown dropdown-user">
                         <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
                             <img src="../../images/placeholders/placeholder.jpg" class="rounded-circle" alt="">
-                            <span>Victoria</span>
+                            <span>{{Session::get('userInfo.username', '')}}</span>
                         </a>
     
                         <div class="dropdown-menu dropdown-menu-right">
                             <a href="#" class="dropdown-item"><i class="icon-user-plus"></i> My profile</a>
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
+                            <a href="/session/logout" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
                         </div>
                     </li>
                 </ul>
@@ -149,8 +149,8 @@
                                 <a href="#">
                                     <img src="../../images/placeholders/placeholder.jpg" class="img-fluid rounded-circle shadow-1 mb-3" width="80" height="80" alt="">
                                 </a>
-                                <h6 class="mb-0 text-white text-shadow-dark">Victoria Baker</h6>
-                                <span class="font-size-sm text-white text-shadow-dark">Santa Ana, CA</span>
+                                <h6 class="mb-0 text-white text-shadow-dark">{{Session::get('userInfo.username', '')}}</h6>
+                                <span class="font-size-sm text-white text-shadow-dark">Bio Reactor ITESO</span>
                             </div>
                                                         
                             <div class="sidebar-user-material-footer">
@@ -167,7 +167,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="/session/logout" class="nav-link">
                                         <i class="icon-switch2"></i>
                                         <span>Logout</span>
                                     </a>

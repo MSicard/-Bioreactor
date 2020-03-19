@@ -14,3 +14,14 @@
 Route::get('/', function () {
     return view('layouts/app');
 });
+
+Route::get('/home', function () {
+    return view('welcome');
+})->middleware('auth.mid');
+
+Route::get('cb', 'SessionController@cognitoAuthCallback');
+
+Route::group(['prefix' => 'session'], function () {
+    Route::get('login', 'SessionController@login');
+    Route::get('logout', 'SessionController@logout');
+});
