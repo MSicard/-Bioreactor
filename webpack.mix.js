@@ -35,6 +35,12 @@ mix.copyDirectory('resources/assets/icons', 'public/icons')
     .copy('resources/assets/js/core/UForms.js', 'public/js/core')
     .copy('resources/assets/js/core/internationalization.js', 'public/js/core')
 
+    .copy('resources/assets/js/models/Notification.js', 'public/js/models')
+    .copy('resources/assets/js/models/BioReactor.js', 'public/js/models')
+    .copy('resources/assets/js/pages/dashboard/home.js', 'public/js/pages/dashboard')
+    .copy('resources/assets/js/pages/restaurant/index.js', 'public/js/pages/restaurant')
+    
+
     .sass('resources/assets/sass/layouts/layout_2/material/compile/bootstrap.scss', 'public/css/core/material')
     .sass('resources/assets/sass/layouts/layout_2/material/compile/bootstrap_limitless.scss', 'public/css/core/material')
     .sass('resources/assets/sass/layouts/layout_2/material/compile/colors.scss', 'public/css/core/material')

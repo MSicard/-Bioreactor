@@ -4,7 +4,7 @@ AjaxCall.successHandler = false;
 AjaxCall.failHandler = false;
 
 AjaxCall.request = function (options) {
-
+    console.log($('meta[name="csrf-token"]').attr('content'));
     var defaults = {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -16,6 +16,7 @@ AjaxCall.request = function (options) {
     };
 
     var realOptions = $.extend(defaults, options);
+    console.log(realOptions);
     return $.ajax(realOptions)
         .done(function (response, textStatus, jqXHR) {
             if (AjaxCall.successHandler && {}.toString.call(AjaxCall.successHandler) === '[object Function]' && realOptions.defaultSuccessHandler) {

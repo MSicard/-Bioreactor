@@ -185,11 +185,16 @@
                             <!-- Main -->
                             <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
                             <li class="nav-item">
-                                <a href="index.html" class="nav-link active">
+                                <a href="index.html" class="nav-link @if (isset($menu) && $menu === 'Dashboard') active @endif"">
                                     <i class="icon-home4"></i>
                                     <span>
                                         Dashboard
-                                        <span class="d-block font-weight-normal opacity-50">No active orders</span>
+                                    </span>
+                                </a>
+                                <a href="/restaurant" class="nav-link @if (isset($menu) && $menu === 'Restaurant') active @endif"">
+                                    <i class="icon-home4"></i>
+                                    <span>
+                                        Restaurant
                                     </span>
                                 </a>
                             </li>
@@ -233,7 +238,7 @@
 </body>
 
 <script type="text/javascript">
-    //const BASE_URL = "{{ url('/') }}";
+    const BASE_URL = "{{ url('/') }}";
     //const LOGOUT_URL = "{{ url('signin/destroy') }}";
     //const AWS_CLOUD_FRONT = "{{env('AWS_CLOUD_FRONT')}}";
 </script>
@@ -272,19 +277,26 @@
 <!-- /core JS files -->
 
 <!-- Theme JS files -->
-<script src="{{ asset('js/core/Errors.js') }}"></script>
-<script src="{{ asset('js/core/functions_Ajax.js') }}"></script>
-<script src="{{ asset('js/core/utils.js') }}"></script>
-<script src="{{ asset('js/core/alerts.js') }}"></script>
-<script src="{{ asset('js/core/app.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/core/Errors.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/core/functions_Ajax.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/core/UForms.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/core/utils.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/core/alerts.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/core/app.js') }}"></script>
+
 <!-- /theme JS files -->
 
-@if(isset($jsFiles) && is_array($jsFiles))
-@foreach ($jsFiles as $file)
-<script type="text/javascript" src="{{ mix($file) }}"></script>
+@if(isset($jsFiles_standAlone) && is_array($jsFiles_standAlone))
+@foreach ($jsFiles_standAlone as $file)
+<script type="text/javascript" src="{{ asset($file) }}"></script>
 @endforeach
 @endif
 
+@if(isset($jsFiles_mix) && is_array($jsFiles_mix))
+@foreach ($jsFiles_mix as $file)
+<script type="text/javascript" src="{{ mix($file) }}"></script>
+@endforeach
+@endif
 <script src="{{ asset('js/core/custom.js') }}"></script>
 
 </html>

@@ -75,7 +75,7 @@ class CazzRequest
     public function requestPOST($json = true)
     {
         if (session()->has('tokens')) {
-            //$this->requestOptions['http']['header'][] = 'X-Status-Auth: ' . session()->get('token');
+            $this->requestOptions['http']['header'][] = 'Authorization: Bearer ' . session()->get('tokens')['access_token'];
         }
 
         $this->requestOptions['http']['method'] = 'POST';

@@ -36,7 +36,6 @@ class SessionController extends Controller
         {
             session()->put('tokens', $tokens);
             session()->put('userInfo', $this->getUserInfo());
-            return view('layouts/app');
         }
         
         return redirect('/');
