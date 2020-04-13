@@ -4,16 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Classes\CazzRequest;
-use App\Models\Restaurant;
+use App\Models\User;
 use Log;
 use Session;
 
-class RestaurantController extends Controller
+class UserController extends Controller
 {
 
     public function show(Request $request)
     {
-        $this->data['menu'] = 'Restaurant';
+        $this->data['menu'] = 'User';
 
         $this->data['cssFilesExternal'] = [
         ];
@@ -21,23 +21,23 @@ class RestaurantController extends Controller
         $this->data['jsFiles_standAlone'] = [
             'js/plugins/buttons/spin.min.js',
             'js/plugins/buttons/ladda.min.js',
-            'js/plugins/forms/styling/switch.min.js',
             'js/plugins/forms/validation/validate.min.js',
             'js/plugins/forms/selects/select2.min.js',
             'js/plugins/tables/datatables/datatables.min.js'
         ];
 
         $this->data['jsFiles_mix'] = [
-            'js/pages/restaurant/index.js',
-            'js/models/Restaurant.js'
+            'js/pages/user/index.js',
+            'js/models/User.js'
         ];
         
-    	return view('restaurant.index', $this->data);
+    	return view('user.index', $this->data);
     }
 
     public function create(Request $request) {
+        Log::info($request);
         $code = 200;
-        $response = Restaurant::create($request->json()->all());
+        $response = User::create($request->json()->all());
         if (isset($response['code'])) {
             $code = $response['code'];
         }
@@ -47,20 +47,11 @@ class RestaurantController extends Controller
 
     public function all() {
         $code = 200;
-        $response = Restaurant::all();
+        $response = User::all();
         if (isset($response['code'])) {
             $code = $response['code'];
         }
 
-        return response()->json($response, $code);
-    }
-
-    public function update(Request $request, $restaurant) {
-        $code = 200;
-        $response = Restaurant::update($restaurant, $request->json()->all());
-        if (isset($response['code'])) {
-            $code = $response['code'];
-        }
         return response()->json($response, $code);
     }
 }

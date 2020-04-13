@@ -14,11 +14,9 @@ class BioReactorController extends Controller
     {
         $code = 200;
         $data = $request->json()->all();
-        Log::info($data);
         $cazzRequest = new CazzRequest(env('API_GW_BASE_URL') . "/weight");
         $cazzRequest->setBody(json_encode($data));
         $cazzResponse = $cazzRequest->requestPost();
-        Log::info($cazzResponse);
         return response()->json($cazzResponse, 200);
     }
 }

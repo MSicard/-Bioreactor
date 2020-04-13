@@ -6,33 +6,26 @@ use App\Classes\CazzRequest;
 use Closure;
 use Log;
 
-
-class Auth 
+class Auth
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
-     * @return mixed
-     */
-    public function handle($request, Closure $next) {
+    public function handle($request, Closure $next)
+    {
+
         if (!$request->session()->has('tokens')) {
-            session()->flush();
+            $request->session()->flush();
             return redirect('/session/login');
         }
-        
-        $tokenTime = (1 * 60);
+
         if ($request->session()->has('updateTime')) {
             $updateTime = $request->session()->get('updateTime');
             if ($updateTime > time()) {
                 return $next($request);
             } else {
-                $request->session()->put('updateTime', time() + $tokenTime);
+                $request->session()->put('updateTime', time() + (10 * 60));
                 $this->refreshToken();
             }
         } else {
-            $request->session()->put('updateTime', time() + $tokenTime);
+            $request->session()->put('updateTime', time() + (10 * 60));
         }
 
         $response = $next($request);
@@ -54,31 +47,26 @@ class Auth
         return $response;
     }
 
-    private function refreshToken()
+    public function refreshToken()
     {
-        $request = new CazzRequest(config('aws.cognito_exchangetoken_url'));
-        $request->addHeaders([
-            'Content-Type: application/x-www-form-urlencoded',
-            'Authorization: Basic ' . base64_encode(config('aws.cognito_client_id') . ":" . config('aws.cognito_client_secret'))
-        ]);
+        Log::info('refreshToken');
+        $request = new CazzRequest(env('REFRESH_TOKEN_URL'));
+        $request->addHeaders(['Content-Type: application/x-www-form-urlencoded']);
+        $request->addHeaders(['Authorization: Basic ' . base64_encode(env('COGNITO_CLIENT_ID') . ':' . env('COGNITO_CLIENT_SECRET'))]);
+        
+        $params = [
+            "grant_type" => "refresh_token",
+            "client_id" => env("COGNITO_CLIENT_ID"),
+            "refresh_token" => session()->get("tokens")['refresh_token'],
+        ];
 
-        $request->setBody(http_build_query([
-            'grant_type' => 'refresh_token',
-            'client_id' => config('aws.cognito_client_id'),
-            'refresh_token' => session()->get('tokens')['refresh_token']
-        ]));
-
+        $request->setBody(http_build_query($params));
         $response = $request->requestPOST();
 
-        if (isset($response["id_token"],
-                    $reponse['access_token'], 
-                    $response['expires_in'],
-                    $reponse['token_type'])) 
-        {
+        if (isset($response["id_token"]) && isset($response["access_token"]) && isset($response["expires_in"]) && isset($response["token_type"])) {
             $response['refresh_token'] = session()->get("tokens")['refresh_token'];
             session()->put('tokens', $response);
-            return $reponse;
-        } 
+        } // Si no se encuentran los tokens, se cierra sesión
         else {
             session()->flush();
             return redirect('/session/login');

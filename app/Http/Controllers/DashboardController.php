@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Classes\CazzRequest;
+use App\Models\Container;
 use Log;
 use Session;
 
@@ -28,6 +29,14 @@ class DashboardController extends Controller
             'js/pages/dashboard/home.js'
         ];
         
+        $this->data['container'] = '';
+
+        $response = Container::all();
+        
+        if (!isset($response['code'])) {
+            $this->data['container'] = $response;
+        }
+
     	return view('layouts.home', $this->data);
     }
 }

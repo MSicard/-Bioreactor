@@ -66,7 +66,6 @@ class CazzRequest
             $this->requestOptions['http']['header'][] = 'Authorization: Bearer ' . session()->get('tokens')['access_token'];
             //$this->requestOptions['http']['header'][] = 'X-Status-Auth: ' . session()->get('token');
         }
-
         $this->requestOptions['http']['method'] = 'GET';
         $response = $this->execute();
         return $response;

@@ -185,7 +185,7 @@
                             <!-- Main -->
                             <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
                             <li class="nav-item">
-                                <a href="index.html" class="nav-link @if (isset($menu) && $menu === 'Dashboard') active @endif"">
+                                <a href="/" class="nav-link @if (isset($menu) && $menu === 'Dashboard') active @endif"">
                                     <i class="icon-home4"></i>
                                     <span>
                                         Dashboard
@@ -194,7 +194,19 @@
                                 <a href="/restaurant" class="nav-link @if (isset($menu) && $menu === 'Restaurant') active @endif"">
                                     <i class="icon-home4"></i>
                                     <span>
-                                        Restaurant
+                                        Restaurants
+                                    </span>
+                                </a>
+                                <a href="/container" class="nav-link @if (isset($menu) && $menu === 'Container') active @endif"">
+                                    <i class="icon-home4"></i>
+                                    <span>
+                                        Containers
+                                    </span>
+                                </a>
+                                <a href="/user" class="nav-link @if (isset($menu) && $menu === 'User') active @endif"">
+                                    <i class="icon-home4"></i>
+                                    <span>
+                                        Users
                                     </span>
                                 </a>
                             </li>
@@ -223,10 +235,12 @@
                     </div>
                 </div>
                 <!-- /page header -->
-    
-    
+                
+                
                 <!-- Content area -->
                 <div class="content pt-0">
+                    @yield('modals')
+                    <h1>{{ csrf_token() }}</h1>
                     @yield('content')
                 </div>
                 <!-- /content area -->
@@ -256,21 +270,14 @@
 <script src="{{ asset('js/core/attrchange_ext.js') }}"></script>
 <script src="{{ asset('js/core/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('js/plugins/forms/selects/select2.min.js') }}"></script>
-<script src="{{ asset('js/plugins/forms/styling/switch.min.js') }}"></script>
-<script src="{{ asset('js/plugins/forms/styling/uniform.min.js') }}"></script>
-<script src="{{ asset('js/plugins/forms/tags/tagsinput.min.js') }}"></script>
 <script src="{{ asset('js/plugins/forms/tags/tokenfield.min.js') }}"></script>
-<script src="{{ asset('js/plugins/forms/wizards/steps.min.js') }}"></script>
 <script src="{{ asset('js/plugins/loaders/blockui.min.js') }}"></script>
 <script src="{{ asset('js/plugins/notifications/pnotify.min.js') }}"></script>
 <script src="{{ asset('js/plugins/notifications/sweet_alert.min.js') }}"></script>
 <script src="{{ asset('js/plugins/ui/moment/moment.min.js') }}"></script>
 <script src="{{ asset('js/plugins/ui/moment/moment_locales.min.js') }}"></script>
-<script src="{{ asset('js/plugins/ui/fab.min.js') }}"></script>
 <script src="{{ asset('js/plugins/ui/nicescroll.js') }}"></script>
 <script src="{{ asset('js/plugins/ui/perfect_scrollbar.min.js') }}"></script>
-<script src="{{ asset('js/plugins/ui/slinky.min.js') }}"></script>
-<script src="{{ asset('js/plugins/ui/sticky.min.js') }}"></script>
 <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js">
 </script>

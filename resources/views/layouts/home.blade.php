@@ -44,12 +44,16 @@
             </div>
 
             <div class="card-body">
+                
                 <form id="form-weight" action="#">
                     <div class="form-group">
                         <label>Container:</label>
                         <select class="form-control" id="select-container" name="container">
-                            <option value="organic">Orgánicos</option>
-                            <option value="inorganic">Inorgánicos</option>
+                            @if(isset($container) && is_array($container)) 
+                                @foreach ($container as $item) 
+                                    <option value="{{ $item['TypeSort'] }}}"`>{{ $item['name'] }}</option>
+                                @endforeach
+                            @endif
                         </select>
                     </div>
                     <div class="form-group">

@@ -11,7 +11,6 @@ class SessionController extends Controller
 {
     public function login()
     {
-        Log::info(config('aws.cognito_signin_url'));
     	return redirect(config('aws.cognito_signin_url'), CazzRequest::REDIRECT);
     }
 
@@ -43,6 +42,7 @@ class SessionController extends Controller
 
     public function exchangeToken(String $code) 
     {
+        Log::info($code);
         $result = false;
         $request = new CazzRequest(config('aws.cognito_exchangetoken_url'));
         $request->addHeaders([
@@ -54,8 +54,9 @@ class SessionController extends Controller
             'code' => $code,
             'redirect_uri' => config('aws.cognito_callback_url')
         ]));
-
+        
         $result = $request->requestPOST();
+        Log::info($result);
         return $result;
     }
 
