@@ -21,6 +21,7 @@ class ContainerController extends Controller
         $this->data['jsFiles_standAlone'] = [
             'js/plugins/buttons/spin.min.js',
             'js/plugins/buttons/ladda.min.js',
+            'js/plugins/forms/styling/switch.min.js',
             'js/plugins/forms/validation/validate.min.js',
             'js/plugins/forms/selects/select2.min.js',
             'js/plugins/tables/datatables/datatables.min.js'
@@ -51,6 +52,15 @@ class ContainerController extends Controller
             $code = $response['code'];
         }
 
+        return response()->json($response, $code);
+    }
+
+    public function update(Request $request, $container) {
+        $code = 200;
+        $response = Container::update($container, $request->json()->all());
+        if (isset($response['code'])) {
+            $code = $response['code'];
+        }
         return response()->json($response, $code);
     }
 }

@@ -32,3 +32,14 @@ Container.get = function () {
             });
     });
 }
+
+Container.update = function (path, data) {
+    return new Promise(function (resolve, reject) {
+        AjaxCall.request({
+            url: `${BASE_URL}/container/${path}`,
+            type: `POST`,
+            data: JSON.stringify(data),
+            defaultSuccessHandler: false
+        })
+    })
+}

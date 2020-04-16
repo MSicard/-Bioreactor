@@ -32,3 +32,20 @@ User.get = function () {
             });
     });
 }
+
+
+User.delete = function (username) {
+    return new Promise(function (resolve, reject) {
+        AjaxCall.request({
+            url: `${BASE_URL}/user/${username}`,
+            type: `POST`,
+            defaultSuccessHandler: false
+        })
+            .done(function (response, textStatus, jqXHR) {
+                resolve(response);
+            })
+            .fail(function (response) {
+                reject(response);
+            });
+    });
+}

@@ -19,6 +19,13 @@ class Container {
         $cazzResponse = $cazzRequest->requestGET();
         return $cazzResponse;
     }
+
+    static public function update($id, $data) {
+        $cazzRequest = new CazzRequest(env('API_GW_BASE_URL') . "/container/" . $id);
+        $cazzRequest->setBody(json_encode($data));
+        $cazzResponse = $cazzRequest->requestPOST();
+        return $cazzResponse;
+    }
 }
 
 ?>

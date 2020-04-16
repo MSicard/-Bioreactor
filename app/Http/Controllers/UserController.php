@@ -54,4 +54,14 @@ class UserController extends Controller
 
         return response()->json($response, $code);
     }
+
+    public function delete(Request $request, $user) {
+        $code = 200;
+        $response = User::delete($user);
+        if (isset($response['code'])) {
+            $code = $response['code'];
+        }
+
+        return response()->json($response, $code);
+    }
 }

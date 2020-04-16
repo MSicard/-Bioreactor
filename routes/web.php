@@ -43,10 +43,12 @@ Route::group(['prefix' => 'container', 'middleware' => 'auth.mid'], function () 
     Route::get('', 'ContainerController@show');
     Route::post('', 'ContainerController@create');
     Route::get('all', 'ContainerController@all');
+    Route::post('{container}', 'ContainerController@update');
 });
 
 Route::group(['prefix' => 'user', 'middleware' => 'auth.mid'], function () {
     Route::get('', 'UserController@show');
     Route::post('', 'UserController@create');
     Route::get('all', 'UserController@all');
+    Route::post('{user}', 'UserController@delete');
 });

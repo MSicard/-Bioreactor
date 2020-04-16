@@ -7,6 +7,14 @@ const VC = function () {
         })
     }
 
+    const deleteUser = async function (user) {
+        return await User.delete(user).then(data => {
+            return Promise.resolve(data);
+        }).catch(error => {
+            return Promise.reject(error);
+        });
+    }
+
     const initForm = function () {
         VC.properties.userValidator = $('#user-create').validate({
             errorClass: 'validation-invalid-label',
@@ -40,14 +48,19 @@ const VC = function () {
             const ladda = Ladda.create(document.querySelector('#submit-create-user'));
             ladda.start();
     
-            createUser(data).then((data) => {
+            createUser(data).then((user) => {
                 ladda.stop(); 
-                console.log(data);
-                $(VC.properties.datatableUser).DataTable().row.add(data); // Add new data
+                console.log(user);
+                myUser = {
+                    Username: user.Username,
+                    email: user.Attributes[1].Value
+                }
+                $(VC.properties.datatableUser).DataTable().row.add(myUser); // Add new data
                 $(VC.properties.datatableUser).DataTable().draw();
                 $('#modal_form').modal('hide');
                 Swal.success(`Data sended`)
-            }).catch(() => {
+            }).catch((e) => {
+                console.log(e);
                 ladda.stop();
                 $('#modal_form').modal('hide')
                 Swal.danger(`Error sending data`);
@@ -67,15 +80,15 @@ const VC = function () {
             },
             dom: 'frltip',
             columns: [
-                { data: 'name' },
-                { data: 'createdAt' },
-                { data: null}
+                { data: 'Username' },
+                { data: 'email'},
+                { data: 'Username'}
             ],
             columnDefs: [
                 {
                     targets: [2],
                     render: function (data, type, row) {
-                        return `<button type="button" class="btn btn-danger btn_delete"><i class="icon-trash"></i></button>`
+                        return `<button type="button" data-username="${data}" name="deleteUser" class="btn btn-danger btn_delete"><i class="icon-trash"></i></button>`
                     }
                 }
             ],
@@ -83,6 +96,17 @@ const VC = function () {
         });
     
         Utils.Tables.init([$(VC.properties.datatableUser).DataTable()]);
+
+        $("[name='deleteUser'").on('click', function (event) {
+            deleteUser(event.currentTarget.dataset.username).then(() => {
+                console.log($(event.currentTarget).parents('tr'));
+                $(VC.properties.datatableUser).DataTable().row($(this).parents('tr')).remove().draw();
+                Swal.success(`User deleted success`)
+            }).catch((e) => {
+                console.log(e);
+                Swal.danger(`Error deleting user`);
+            })
+        })
     }
 
     return {
@@ -99,7 +123,11 @@ VC.properties = {
 
 
 $(document).ready(async function () {
-    let data = await User.get();
-    VC.initDataTable([]);
+    let users = await User.get();
+    console.log(users);
+    let data = users.map(function (user) {
+        return { Username: user.Username, email: user.Attributes[0].Value }
+    })
+    VC.initDataTable(data);
     VC.initForm();
 });

@@ -8,6 +8,14 @@ const VC = function () {
         })
     }
 
+    const activeContainer = async function(type, value) {
+        return await Container.update(type, value).then(data => {
+            return Promise.resolve(data);
+        }).catch(error => {
+            return Promise.reject(error);
+        });
+    }
+
     const initForm = function () {
         VC.properties.containerValidator = $('#container-create').validate({
             errorClass: 'validation-invalid-label',
@@ -72,13 +80,13 @@ const VC = function () {
                 { data: 'id' },
                 { data: 'name' },
                 { data: 'createdAt' },
-                { data: null}
+                { data: 'isActive'}
             ],
             columnDefs: [
                 {
                     targets: [3],
                     render: function (data, type, row) {
-                        return `<button type="button" class="btn btn-danger btn_delete"><i class="icon-trash"></i></button>`
+                        return `<input type="checkbox" data-type="${row.id}" name="isActive" ${data == true ? `checked="checked"` : ""}">`
                     }
                 }
             ],
@@ -86,6 +94,18 @@ const VC = function () {
         });
     
         Utils.Tables.init([$(VC.properties.datatableContainer).DataTable()]);
+
+        $("[name='isActive'").bootstrapSwitch({
+            onSwitchChange: function(event) {
+                activeContainer(event.currentTarget.dataset.type, {
+                    "isActive": $(event.currentTarget).bootstrapSwitch('state')
+                }).then((data) => {
+                    Swal.success(`Restaurant updated success`)
+                }).catch(() => {
+                    Swal.danger(`Error updating data`);
+                });
+            }
+        });
     }
 
     return {
