@@ -3,6 +3,28 @@
 @section('content')
 <!-- Basic layout-->
 <div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header header-elements-inline">
+                <h5 class="card-title">By Day</h5>
+                <div class="header-elements">
+                    <div class="list-icons">
+                        <a class="list-icons-item" data-action="reload"></a>
+                        <a class="list-icons-item" data-action="remove"></a>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="card-body">
+                <div class="chart-container">
+                    <div class="chart has-fixed-height" id="by_day"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-md-6">
         <div class="card">
             <div class="card-header header-elements-inline">
@@ -51,7 +73,7 @@
                         <select class="form-control" id="select-container" name="container">
                             @if(isset($container) && is_array($container)) 
                                 @foreach ($container as $item) 
-                                    <option value="{{ $item['TypeSort'] }}}"`>{{ $item['name'] }}</option>
+                                    <option value="{{ $item['TypeSort'] }}"`>{{ $item['name'] }}</option>
                                 @endforeach
                             @endif
                         </select>

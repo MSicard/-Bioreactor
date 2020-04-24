@@ -20,6 +20,15 @@
                                 <input type="text" name="name" placeholder="Container Name" class="form-control">
                             </div>
                         </div>
+                         
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" name="isVirtual" class="form-check-input-styled" data-fouc>
+                                Es Virtual
+                            </label>
+                        </div>
                     </div>
                 </div>
 

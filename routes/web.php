@@ -30,6 +30,7 @@ Route::group(['prefix' => 'notification', 'middleware' => 'auth.mid'], function 
 
 Route::group(['prefix' => 'bioreactor', 'middleware' => 'auth.mid'], function () {
     Route::post('', 'BioReactorController@send');
+    Route::post('byday', 'BioReactorController@getByDay');
 });
 
 Route::group(['prefix' => 'restaurant', 'middleware' => 'auth.mid'], function () {
@@ -51,4 +52,8 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth.mid'], function () {
     Route::post('', 'UserController@create');
     Route::get('all', 'UserController@all');
     Route::post('{user}', 'UserController@delete');
+});
+
+Route::group(['prefix' => 'report', 'middleware'=> 'auth.mid'], function () {
+    Route::get('', 'ReportController@show');
 });

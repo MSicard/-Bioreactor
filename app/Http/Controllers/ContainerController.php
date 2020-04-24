@@ -22,9 +22,10 @@ class ContainerController extends Controller
             'js/plugins/buttons/spin.min.js',
             'js/plugins/buttons/ladda.min.js',
             'js/plugins/forms/styling/switch.min.js',
+            'js/plugins/forms/styling/uniform.min.js',
             'js/plugins/forms/validation/validate.min.js',
             'js/plugins/forms/selects/select2.min.js',
-            'js/plugins/tables/datatables/datatables.min.js'
+            'js/plugins/tables/datatables/datatables.min.js',
         ];
 
         $this->data['jsFiles_mix'] = [

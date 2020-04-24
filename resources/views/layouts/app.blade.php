@@ -81,6 +81,7 @@
                 <button class="navbar-toggler sidebar-mobile-main-toggle" type="button">
                     <i class="icon-paragraph-justify3"></i>
                 </button>
+               
             </div>
             <!-- /mobile controls -->
     
@@ -93,6 +94,7 @@
                             <i class="icon-paragraph-justify3"></i>
                         </a>
                     </li>
+                    
                 </ul>
     
                 <span class="navbar-text ml-md-3 mr-md-auto">
@@ -185,25 +187,31 @@
                             <!-- Main -->
                             <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
                             <li class="nav-item">
-                                <a href="/" class="nav-link @if (isset($menu) && $menu === 'Dashboard') active @endif"">
+                                <a href="/" class="nav-link @if (isset($menu) && $menu === 'Dashboard') active @endif">
                                     <i class="icon-home4"></i>
                                     <span>
                                         Dashboard
                                     </span>
                                 </a>
-                                <a href="/restaurant" class="nav-link @if (isset($menu) && $menu === 'Restaurant') active @endif"">
+                                <a href="/report" class="nav-link @if (isset($menu) && $menu === 'Report') active @endif">
+                                    <i class="icon-home4"></i>
+                                    <span>
+                                        Reports
+                                    </span>
+                                </a>
+                                <a href="/restaurant" class="nav-link @if (isset($menu) && $menu === 'Restaurant') active @endif">
                                     <i class="icon-home4"></i>
                                     <span>
                                         Restaurants
                                     </span>
                                 </a>
-                                <a href="/container" class="nav-link @if (isset($menu) && $menu === 'Container') active @endif"">
+                                <a href="/container" class="nav-link @if (isset($menu) && $menu === 'Container') active @endif">
                                     <i class="icon-home4"></i>
                                     <span>
                                         Containers
                                     </span>
                                 </a>
-                                <a href="/user" class="nav-link @if (isset($menu) && $menu === 'User') active @endif"">
+                                <a href="/user" class="nav-link @if (isset($menu) && $menu === 'User') active @endif">
                                     <i class="icon-home4"></i>
                                     <span>
                                         Users
@@ -221,8 +229,8 @@
             </div>
             <!-- /main sidebar -->
     
-    
-            <!-- Main content -->
+
+            
             <div class="content-wrapper">
     
                 <!-- Page header -->
@@ -246,8 +254,7 @@
                 <!-- /content area -->
             </div>
             <!-- /main content -->
-    
-        </div>
+
         <!-- /page content -->
 </body>
 

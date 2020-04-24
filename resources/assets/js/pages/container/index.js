@@ -46,6 +46,7 @@ const VC = function () {
             if (VC.properties.containerValidator.numberOfInvalids() > 0) return;
     
             const data = UForms.getJSONObject(event.target);
+            data['isVirtual'] = data['isVirtual'] == 'on' ? true : false;
             const ladda = Ladda.create(document.querySelector('#submit-create-container'));
             ladda.start();
     
@@ -54,6 +55,17 @@ const VC = function () {
                 console.log(data);
                 $(VC.properties.datatableContainer).DataTable().row.add(data); // Add new data
                 $(VC.properties.datatableContainer).DataTable().draw();
+                $("[name='isActive']").bootstrapSwitch({
+                    onSwitchChange: function(event) {
+                        activeRestaurant(event.currentTarget.dataset.type, {
+                            "isActive": $(event.currentTarget).bootstrapSwitch('state')
+                        }).then((data) => {
+                            Swal.success(`Restaurant updated success`)
+                        }).catch(() => {
+                            Swal.danger(`Error updating data`);
+                        });
+                    }
+                });
                 $('#modal_form').modal('hide');
                 Swal.success(`Data sended`)
             }).catch(() => {
@@ -95,7 +107,7 @@ const VC = function () {
     
         Utils.Tables.init([$(VC.properties.datatableContainer).DataTable()]);
 
-        $("[name='isActive'").bootstrapSwitch({
+        $("[name='isActive']").bootstrapSwitch({
             onSwitchChange: function(event) {
                 activeContainer(event.currentTarget.dataset.type, {
                     "isActive": $(event.currentTarget).bootstrapSwitch('state')
@@ -122,6 +134,7 @@ VC.properties = {
 
 
 $(document).ready(async function () {
+    $('.form-check-input-styled').uniform();
     let data = await Container.get();
     VC.initDataTable(data);
     VC.initForm();

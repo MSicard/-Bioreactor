@@ -50,7 +50,6 @@ const VC = function () {
     
             createUser(data).then((user) => {
                 ladda.stop(); 
-                console.log(user);
                 myUser = {
                     Username: user.Username,
                     email: user.Attributes[1].Value
@@ -60,7 +59,7 @@ const VC = function () {
                 $('#modal_form').modal('hide');
                 Swal.success(`Data sended`)
             }).catch((e) => {
-                console.log(e);
+                console.log(`Error creating User`, e);
                 ladda.stop();
                 $('#modal_form').modal('hide')
                 Swal.danger(`Error sending data`);
@@ -99,11 +98,10 @@ const VC = function () {
 
         $("[name='deleteUser'").on('click', function (event) {
             deleteUser(event.currentTarget.dataset.username).then(() => {
-                console.log($(event.currentTarget).parents('tr'));
                 $(VC.properties.datatableUser).DataTable().row($(this).parents('tr')).remove().draw();
                 Swal.success(`User deleted success`)
             }).catch((e) => {
-                console.log(e);
+                console.log(`Error deleting User`, e);
                 Swal.danger(`Error deleting user`);
             })
         })
@@ -124,7 +122,6 @@ VC.properties = {
 
 $(document).ready(async function () {
     let users = await User.get();
-    console.log(users);
     let data = users.map(function (user) {
         return { Username: user.Username, email: user.Attributes[0].Value }
     })

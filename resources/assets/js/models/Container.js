@@ -1,6 +1,7 @@
 var Container = Container || {};
 
 Container.create = function (data) {
+    console.log(data);
     return new Promise(function (resolve, reject) {
         AjaxCall.request({
             url: `${BASE_URL}/container`,

@@ -16,6 +16,6 @@ class NotificationController extends Controller
         $cazzRequest = new CazzRequest(env('API_GW_BASE_URL') . "/notification");
         $cazzRequest->setBody(json_encode($data));
         $cazzResponse = $cazzRequest->requestPost();
-        return response()->json($response, 200);
+        return response()->json($cazzResponse, 200);
     }
 }

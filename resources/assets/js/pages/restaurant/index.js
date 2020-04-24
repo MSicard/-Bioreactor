@@ -48,6 +48,7 @@ function initForms() {
         if (restaurantValidator.numberOfInvalids() > 0) return;
 
         const data = UForms.getJSONObject(event.target);
+       
         const ladda = Ladda.create(document.querySelector('#submit-create-restaurant'));
         ladda.start();
 
@@ -55,6 +56,17 @@ function initForms() {
             ladda.stop(); 
             $(datatableRestaurant).DataTable().row.add(data); // Add new data
             $(datatableRestaurant).DataTable().draw();
+            $("[name='isActive']").bootstrapSwitch({
+                onSwitchChange: function(event) {
+                    activeRestaurant(event.currentTarget.dataset.type, {
+                        "isActive": $(event.currentTarget).bootstrapSwitch('state')
+                    }).then((data) => {
+                        Swal.success(`Restaurant updated success`)
+                    }).catch(() => {
+                        Swal.danger(`Error updating data`);
+                    });
+                }
+            });
             $('#modal_form').modal('hide');
             Swal.success(`Data sended`)
         }).catch(() => {
@@ -99,7 +111,7 @@ $(document).ready(async function () {
 
     Utils.Tables.init([$(datatableRestaurant).DataTable()]);
     initForms();
-    $("[name='isActive'").bootstrapSwitch({
+    $("[name='isActive']").bootstrapSwitch({
         onSwitchChange: function(event) {
             activeRestaurant(event.currentTarget.dataset.type, {
                 "isActive": $(event.currentTarget).bootstrapSwitch('state')
