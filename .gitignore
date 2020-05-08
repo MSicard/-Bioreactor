@@ -220,5 +220,3 @@ public/css/icons/
 package-lock.json
 
 resources/views/messages/test.blade.php
-
-composer.lock
