@@ -50,16 +50,19 @@ class Auth
     public function refreshToken()
     {
         Log::info('refreshToken');
-        $request = new CazzRequest(env('REFRESH_TOKEN_URL'));
-        $request->addHeaders(['Content-Type= application/x-www-form-urlencoded']);
-        $request->addHeaders(['Authorization= Basic ' . base64_encode(env('COGNITO_CLIENT_ID') . ':' . env('COGNITO_CLIENT_SECRET'))]);
-
+        $request = new CazzRequest(config('aws.cognito_exchangetoken_url'));
+        $request->addHeaders([
+            'Content-Type: application/x-www-form-urlencoded',
+            'Authorization: Basic ' . base64_encode(config('aws.cognito_client_id') . ":" . config('aws.cognito_client_secret'))
+        ]);
+        Log::info('Basic ' . base64_encode(config('aws.cognito_client_id') . ":" . config('aws.cognito_client_secret')));
+        Log::info(session()->get("tokens")['refresh_token']);
         $params = [
             "grant_type" => "refresh_token",
-            "client_id" => env("COGNITO_CLIENT_ID"),
+            "client_id" => config('aws.cognito_client_id'),
             "refresh_token" => session()->get("tokens")['refresh_token'],
         ];
-
+        Log::info(http_build_query($params));
         $request->setBody(http_build_query($params));
         $response = $request->requestPOST();
         Log::info($response);
