@@ -11,17 +11,6 @@ const VC = function () {
         return data;
     }
 
-    const convertData = function (data) {
-        let myContainers = {};
-        data.forEach(element => {
-            if (!myContainers.hasOwnProperty(element.container)) {
-                myContainers[element.container] = [];
-            }
-            myContainers[element.container].push([element.typeSort, element.weight, element.user]);
-        });
-        return convertToSerie(myContainers);
-    }
-
     const initTables = async function (start, end) {
         VC.properties.byDay = document.getElementById('by_day');
         let data = await getDataByRange(start, end);
@@ -32,7 +21,7 @@ const VC = function () {
         // Initialize with options
         $('.daterange-ranges').daterangepicker(
             {
-                startDate: moment().subtract(29, 'days'),
+                startDate: moment(),
                 endDate: moment(),
                 minDate: '01/01/2020',
                 maxDate: moment(),
@@ -78,6 +67,7 @@ const VC = function () {
             dom: 'Bfrltip',
             buttons: [{
                 extend: 'csv',
+                charset: 'UTF-8',
                 filename: 'bioreactor-' + moment().format('D/MM/YY'),
                 className: 'btn bg-teal-400',
             }, {

@@ -21,7 +21,8 @@ class DashboardController extends Controller
             'js/plugins/buttons/ladda.min.js',
             'js/plugins/forms/validation/validate.min.js',
             'js/plugins/forms/selects/select2.min.js',
-            'js/plugins/visualization/echarts/echarts.min.js'
+            'js/plugins/visualization/echarts/echarts.min.js',
+            'js/plugins/ui/moment/moment.min.js',
         ];
 
         $this->data['jsFiles_mix'] = [

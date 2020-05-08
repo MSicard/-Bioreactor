@@ -1,15 +1,10 @@
 const VC = function () {
-    const getDayByDay = async function (date) {
-        // let today = new Date();
-        let dd = date.getDate();
-        let mm = date.getMonth();
-        let year = date.getFullYear();
-    
-        let fromDate = new Date(year, mm, dd, 0, 0, 0);
-        let toDate = new Date(year, mm, dd, 23, 0, 0);
+    const getDataByRange = async function (start, end) {
+        start.startOf('day');
+        end.endOf('day');
         let data = await BioReactor.getByDay({
-            "fromDate": fromDate.getTime(),
-            "toDate": toDate.getTime()
+            "fromDate": start.valueOf(),
+            "toDate": end.valueOf()
         });
 
         return data;
@@ -47,14 +42,52 @@ const VC = function () {
         return { 'series': serie, 'legend': legend };
     }
 
-
     const initGraph = async function () {
         VC.properties.byDay = document.getElementById('by_day');
-        let data = await getDayByDay(new Date());
+        let data = await getDataByRange(moment(), moment());
         let { series, legend } = convertData(data);
         initDayGraph(series, legend, new Date());
     }
 
+    const initValue = async function () {
+        setValue($('#value_today'), $('#date_today'), moment(), moment());
+        setValue($('#value_yesterday'), $('#date_yesterday'), moment().subtract(1, 'days'), moment().subtract(1, 'days'));
+        setValue($('#value_week'), $('#date_week'), moment().subtract(7, 'days'), moment());
+    }
+
+    const setValue = async function (valueDiv, dateDiv, start, end) {
+        try {
+            let data = await getDataByRange(start, end);
+            let total = data.reduce((acc, value) => {
+                if (value.diffWeight) {
+                    if(typeof value.diffWeight === 'string') {
+                        return acc + parseInt(value.diffWeight);
+                    }
+                    else return acc + value.diffWeight;
+                }
+                return acc;
+            }, 0);
+            
+            valueDiv.html(`${Math.round(total * 100)/100} kg`);
+            dateDiv.html(start.format('DD MMMM YYYY'));
+        } catch(e) {
+            console.log(e);
+        }
+    }
+
+    const initReload = function () {
+        $('#reload-day').click( function(event) { 
+            event.preventDefault();
+            setValue($('#value_today'), $('#date_today'), moment(), moment());
+            return false; 
+        });
+    
+        $('#reload-graph').click(function (event)  {
+            event.preventDefault();
+            initGraph();
+            return false;
+        });
+    }
 
     const initDayGraph = function (mySerie, myLengend, date) {
         if (VC.properties.byDay) {
@@ -182,8 +215,11 @@ const VC = function () {
             });
         }
     }
+
     return {
-        initGraph
+        initGraph,
+        initValue,
+        initReload
     }
 }();
 
@@ -194,4 +230,6 @@ VC.properties = {
 
 $(document).ready(async function () {
     VC.initGraph();
+    VC.initValue();
+    VC.initReload();
 });

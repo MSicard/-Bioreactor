@@ -35,4 +35,24 @@ class BioReactorController extends Controller
         return response()->json($response, $code);
     }
 
+    public function getByContainer(Request $request, $container) 
+    {
+        $code = 200;
+        $response = BioReactor::getByContainer($request->json()->all(), $container);
+        if (isset($response['code'])) {
+            $code = $response['code'];
+        }
+        return response()->json($response, $code);
+    }
+
+    public function getByRestaurant(Request $request, $restaurant) 
+    {
+        $code = 200;
+        $response = BioReactor::getByRestaurant($request->json()->all(), $restaurant);
+        if (isset($response['code'])) {
+            $code = $response['code'];
+        }
+        return response()->json($response, $code);
+    }
+
 }

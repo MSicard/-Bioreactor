@@ -9,7 +9,6 @@ use Log;
 class User {
     static public function create($data) {
         $cazzRequest = new CazzRequest(env('API_GW_BASE_URL') . "/user");
-        Log::info($data);
         $cazzRequest->setBody(json_encode($data));
         $cazzResponse = $cazzRequest->requestPost();
         return $cazzResponse;

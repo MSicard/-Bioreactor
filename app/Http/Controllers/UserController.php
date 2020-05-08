@@ -35,7 +35,6 @@ class UserController extends Controller
     }
 
     public function create(Request $request) {
-        Log::info($request);
         $code = 200;
         $response = User::create($request->json()->all());
         if (isset($response['code'])) {

@@ -108,8 +108,6 @@
                         </a>
     
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="#" class="dropdown-item"><i class="icon-user-plus"></i> My profile</a>
-                            <div class="dropdown-divider"></div>
                             <a href="/session/logout" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
                         </div>
                     </li>
@@ -163,12 +161,6 @@
                         <div class="collapse" id="user-nav">
                             <ul class="nav nav-sidebar">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="icon-user-plus"></i>
-                                        <span>My profile</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="/session/logout" class="nav-link">
                                         <i class="icon-switch2"></i>
                                         <span>Logout</span>
@@ -194,25 +186,25 @@
                                     </span>
                                 </a>
                                 <a href="/report" class="nav-link @if (isset($menu) && $menu === 'Report') active @endif">
-                                    <i class="icon-home4"></i>
+                                    <i class="icon-stats-dots"></i>
                                     <span>
                                         Reports
                                     </span>
                                 </a>
                                 <a href="/restaurant" class="nav-link @if (isset($menu) && $menu === 'Restaurant') active @endif">
-                                    <i class="icon-home4"></i>
+                                    <i class="icon-store2"></i>
                                     <span>
                                         Restaurants
                                     </span>
                                 </a>
                                 <a href="/container" class="nav-link @if (isset($menu) && $menu === 'Container') active @endif">
-                                    <i class="icon-home4"></i>
+                                    <i class="icon-trash"></i>
                                     <span>
                                         Containers
                                     </span>
                                 </a>
                                 <a href="/user" class="nav-link @if (isset($menu) && $menu === 'User') active @endif">
-                                    <i class="icon-home4"></i>
+                                    <i class="icon-user"></i>
                                     <span>
                                         Users
                                     </span>
@@ -231,24 +223,12 @@
     
 
             
-            <div class="content-wrapper">
-    
-                <!-- Page header -->
-                <div class="page-header">
-                    <div class="page-header-content header-elements-md-inline">
-                        <div class="page-title d-flex">
-                            <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> - Dashboard</h4>
-                            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <!-- /page header -->
-                
+            <div class="content-wrapper mt-3">
                 
                 <!-- Content area -->
                 <div class="content pt-0">
                     @yield('modals')
-                    <h1>{{ csrf_token() }}</h1>
+                    
                     @yield('content')
                 </div>
                 <!-- /content area -->

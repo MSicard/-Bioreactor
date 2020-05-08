@@ -47,6 +47,8 @@ mix.copyDirectory('resources/assets/icons', 'public/icons')
     .copy('resources/assets/js/pages/container/index.js', 'public/js/pages/container')
     .copy('resources/assets/js/pages/user/index.js', 'public/js/pages/user')
     .copy('resources/assets/js/pages/report/index.js', 'public/js/pages/report')
+    .copy('resources/assets/js/pages/report/container.js', 'public/js/pages/report')
+    .copy('resources/assets/js/pages/report/restaurant.js', 'public/js/pages/report')
 
     .sass('resources/assets/sass/layouts/layout_2/material/compile/bootstrap.scss', 'public/css/core/material')
     .sass('resources/assets/sass/layouts/layout_2/material/compile/bootstrap_limitless.scss', 'public/css/core/material')

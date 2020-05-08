@@ -31,6 +31,8 @@ Route::group(['prefix' => 'notification', 'middleware' => 'auth.mid'], function 
 Route::group(['prefix' => 'bioreactor', 'middleware' => 'auth.mid'], function () {
     Route::post('', 'BioReactorController@send');
     Route::post('byday', 'BioReactorController@getByDay');
+    Route::post('bycontainer/{container}', 'BioReactorController@getByContainer');
+    Route::post('byrestaurant/{restaurant}', 'BioReactorController@getByRestaurant');
 });
 
 Route::group(['prefix' => 'restaurant', 'middleware' => 'auth.mid'], function () {
@@ -56,4 +58,6 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth.mid'], function () {
 
 Route::group(['prefix' => 'report', 'middleware'=> 'auth.mid'], function () {
     Route::get('', 'ReportController@show');
+    Route::get('container/{container}', 'ReportController@container');
+    Route::get('restaurant/{restaurant}', 'ReportController@restaurant');
 });

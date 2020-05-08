@@ -21,11 +21,11 @@ class Auth
             if ($updateTime > time()) {
                 return $next($request);
             } else {
-                $request->session()->put('updateTime', time() + (10 * 60));
+                $request->session()->put('updateTime', time() + (1 * 60));
                 $this->refreshToken();
             }
         } else {
-            $request->session()->put('updateTime', time() + (10 * 60));
+            $request->session()->put('updateTime', time() + (1 * 60));
         }
 
         $response = $next($request);
@@ -51,9 +51,9 @@ class Auth
     {
         Log::info('refreshToken');
         $request = new CazzRequest(env('REFRESH_TOKEN_URL'));
-        $request->addHeaders(['Content-Type: application/x-www-form-urlencoded']);
-        $request->addHeaders(['Authorization: Basic ' . base64_encode(env('COGNITO_CLIENT_ID') . ':' . env('COGNITO_CLIENT_SECRET'))]);
-        
+        $request->addHeaders(['Content-Type= application/x-www-form-urlencoded']);
+        $request->addHeaders(['Authorization= Basic ' . base64_encode(env('COGNITO_CLIENT_ID') . ':' . env('COGNITO_CLIENT_SECRET'))]);
+
         $params = [
             "grant_type" => "refresh_token",
             "client_id" => env("COGNITO_CLIENT_ID"),
@@ -62,7 +62,7 @@ class Auth
 
         $request->setBody(http_build_query($params));
         $response = $request->requestPOST();
-
+        Log::info($response);
         if (isset($response["id_token"]) && isset($response["access_token"]) && isset($response["expires_in"]) && isset($response["token_type"])) {
             $response['refresh_token'] = session()->get("tokens")['refresh_token'];
             session()->put('tokens', $response);
