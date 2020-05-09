@@ -21,11 +21,11 @@ class Auth
             if ($updateTime > time()) {
                 return $next($request);
             } else {
-                $request->session()->put('updateTime', time() + (1 * 60));
+                $request->session()->put('updateTime', time() + (30 * 60));
                 $this->refreshToken();
             }
         } else {
-            $request->session()->put('updateTime', time() + (1 * 60));
+            $request->session()->put('updateTime', time() + (30 * 60));
         }
 
         $response = $next($request);

@@ -161,6 +161,10 @@ const VC = function () {
 
     const initReport = async function(start, end) {
         let data = await getByRestaurant(start, end);
+        if (data != []) {
+            $('#name').html(data[0].user);
+        }
+        console.log('data', data);
         let totalValue = await sumData(data);
         let totalWeight = document.getElementById('total_weight');
         totalWeight.innerHTML = `${totalValue} kg`

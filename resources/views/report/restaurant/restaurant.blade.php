@@ -13,7 +13,7 @@
     <div class="col-lg-8">  
         <div class="card">
             <div class="card-header header-elements-inline">
-                <h5 class="card-title">@if(isset($restaurant)) {{$restaurant}} @endif</h5>
+                <h5 class="card-title" id="name">@if(isset($restaurant)) {{$restaurant}} @endif</h5>
             </div>
             <div class="card-body">
                 <table id="table_report" class="table table-striped datatable table-hover col-md-12">
