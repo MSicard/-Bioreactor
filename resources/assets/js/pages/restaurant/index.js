@@ -10,9 +10,13 @@ async function createRestaurant(data) {
 }
 
 async function activeRestaurant(type, value) {
+    value['restaurant'] = type;
+    console.log(value);
     return await Restaurant.update(type, value).then(data => {
+        console.log(data);
         return Promise.resolve(data);
     }).catch(error => {
+        console.log(error);
         return Promise.reject(error);
     });
 }
@@ -117,7 +121,8 @@ $(document).ready(async function () {
                 "isActive": $(event.currentTarget).bootstrapSwitch('state')
             }).then((data) => {
                 Swal.success(`Restaurant updated success`)
-            }).catch(() => {
+            }).catch((e) => {
+                console.log(e);
                 Swal.danger(`Error updating data`);
             });
         }

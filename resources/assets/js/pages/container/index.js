@@ -9,6 +9,7 @@ const VC = function () {
     }
 
     const activeContainer = async function(type, value) {
+        value['container'] = type;
         return await Container.update(type, value).then(data => {
             return Promise.resolve(data);
         }).catch(error => {

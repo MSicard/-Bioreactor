@@ -34,6 +34,7 @@ Restaurant.get = function () {
 }
 
 Restaurant.update = function (path, data) {
+    console.log(data);
     return new Promise(function (resolve, reject) {
         AjaxCall.request({
             url: `${BASE_URL}/restaurant/${path}`,
